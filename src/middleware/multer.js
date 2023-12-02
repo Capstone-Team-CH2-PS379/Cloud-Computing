@@ -26,7 +26,7 @@ const upload = multer({
 // Middleware untuk menangani unggahan file dan menyimpan di Google Cloud Storage
 const handleFileUpload = (req, res, next) => {
     if (!req.file) {
-      return res.status(400).json({ message: 'File tidak ditemukan.' });
+        return res.status(400).json({ message: 'File tidak ditemukan.' });
     }
 
     // Mengonversi file buffer ke readable stream
@@ -36,22 +36,26 @@ const handleFileUpload = (req, res, next) => {
     blobStream.on('error', (err) => {
         console.error('Error saat menyimpan file ke Google Cloud Storage:', err);
         return res.status(500).json({ message: 'Gagal menyimpan file ke Google Cloud Storage.' });
-      });
-
+    });
 
     blobStream.on('finish', () => {
-      // File telah disimpan di Google Cloud Storage
-      req.file.cloudStorageObject = blob.name;
-      req.file.cloudStoragePublicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
+        // File telah disimpan di Google Cloud Storage
+        req.file.cloudStorageObject = blob.name;
+        req.file.cloudStoragePublicUrl = `https://storage.googleapis.com/${bucket.name}/${blob.name}`;
 
-      // Hapus file dari memori
-      req.file.buffer = undefined;
+        // Hapus file dari memori
+        req.file.buffer = undefined;
 
-      next();
+        // Pastikan next adalah fungsi sebelum memanggilnya
+        if (typeof next === 'function') {
+            next();
+        }
     });
 
     blobStream.end(req.file.buffer);
-  };
+};
+
+
 
   module.exports = {
     upload,
