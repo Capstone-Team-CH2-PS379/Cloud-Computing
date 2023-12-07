@@ -1,23 +1,35 @@
 // require('dotenv').config();
 const express = require('express');
 const app = express();
-
+const db = require('./config/db.js');
 
 app.use(express.json());
 
+//requirement
 const audioNativeRoutes = require('./routes/native.js');
-const categoryRoutes = require('./routes/category.js');
+const categoryRoutes = require('./routes/category.js')
+const itemsRoutes = require('./routes/items');
+const middlewareLogRequest =require('./middleware/logs.js');
 
+//middleware
+app.use(middlewareLogRequest);
 
-app.use("/", (req, res, next)=>{
-    res.send('Selamat Server berhasil berjalan');
-})
+// endpoint
+//items
+app.use('/api', itemsRoutes);
 
-// audio native
-app.use('/native', audioNativeRoutes);
 // category
-app.use('/category-name', categoryRoutes);
+app.use('/category', categoryRoutes);
+
+
+
 
 app.listen(4000, () =>{
     console.log(`Server berhasil di running di  http://localhost:4000`);
 });
+
+
+// // audio native
+// app.use('/native', audioNativeRoutes);
+// // category
+// app.use('/category-name', categoryRoutes);
