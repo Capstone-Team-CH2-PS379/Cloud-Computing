@@ -1,10 +1,10 @@
-const nativeModel = require('../models/native.js');
+const usersModel = require('../models/users.js');
 
-const getAllNatives = async (req, res) => {
+const getAllUsers = async (req, res) => {
     try {
-        const [data] = await nativeModel.getAllNatives();
+        const [data] = await usersModel.getAllUsers();
         res.json({
-            message: 'Get All Natives success',
+            message: 'Get All Users success',
             data: data
         });
     } catch (error) {
@@ -16,18 +16,18 @@ const getAllNatives = async (req, res) => {
     }
 };
 
-const createNewNative = async (req, res) => {
+const createNewUsers = async (req, res) => {
     const { body } = req;
-    if (!body.category_id || !body.text_audio || !body.audioPath) {
+    if (!body.first_name || !body.last_name || !body.email || !body.password) {
         return res.status(400).json({
-            message: "Incomplete native audio data",
+            message: "Incomplete user data",
             data: null
         });
     }
     try {
-        await nativeModel.createNewNative(body);
+        await usersModel.createNewUsers(body);
         res.status(201).json({
-            message: 'CREATE native audio success',
+            message: 'CREATE user success',
             data: body
         });
     } catch (error) {
@@ -38,15 +38,15 @@ const createNewNative = async (req, res) => {
     }
 };
 
-const updateNative = async (req, res) => {
-    const { nativeAudioId } = req.params;
+const updateUsers = async (req, res) => {
+    const { userId } = req.params;
     const { body } = req;
     try {
-        await nativeModel.updateNative(body, nativeAudioId);
+        await usersModel.updateUsers(body, userId);
         res.json({
-            message: "Update Native Audio success",
+            message: "Update User success",
             data: {
-                id: nativeAudioId,
+                id: userId,
                 ...body
             },
         });
@@ -58,10 +58,10 @@ const updateNative = async (req, res) => {
     }
 };
 
-const deleteNative = async (req, res) => {
-    const { nativeAudioId } = req.params;
+const deleteUsers = async (req, res) => {
+    const { userId } = req.params;
     try {
-        await nativeModel.deleteNative(nativeAudioId);
+        await usersModel.deleteUsers(userId);
         res.json({
             message: 'DELETE success',
             data: null
@@ -75,8 +75,8 @@ const deleteNative = async (req, res) => {
 };
 
 module.exports = {
-    getAllNatives,
-    createNewNative,
-    updateNative,
-    deleteNative,
+    getAllUsers,
+    createNewUsers,
+    updateUsers,
+    deleteUsers,
 };

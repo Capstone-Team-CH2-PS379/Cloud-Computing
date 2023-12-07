@@ -9,6 +9,7 @@ app.use(express.json());
 const audioNativeRoutes = require('./routes/native.js');
 const categoryRoutes = require('./routes/category.js')
 const itemsRoutes = require('./routes/items');
+const usersRoutes = require('./routes/users.js');
 const middlewareLogRequest =require('./middleware/logs.js');
 
 //middleware
@@ -18,10 +19,14 @@ app.use(middlewareLogRequest);
 //items
 app.use('/api', itemsRoutes);
 
+//user
+app.use('/users', usersRoutes);
+
 // category
 app.use('/category', categoryRoutes);
 
-
+// audio native
+app.use('/native', audioNativeRoutes);
 
 
 app.listen(4000, () =>{
@@ -29,7 +34,6 @@ app.listen(4000, () =>{
 });
 
 
-// // audio native
-// app.use('/native', audioNativeRoutes);
+
 // // category
 // app.use('/category-name', categoryRoutes);

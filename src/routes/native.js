@@ -1,17 +1,17 @@
-// const express = require('express');
-// const router = express.Router();
-// const nativeController = require('../controller/native.js');
+const express = require('express');
+const nativeController = require('../controller/native.js');
+const router = express.Router();
 
-// //create - POST
-// router.post('/', nativeController.createNewNativeAudio);
+// Create - POST
+router.post('/', nativeController.createNewNative);
 
-// //Read - GET
-// router.get('/', nativeController.getAllNativeAudio);
+// Read - GET
+router.get('/', nativeController.getAllNatives);
 
-// //UPDATE - PATCH
-// router.patch('/:idUser', nativeController.updateNativeAudio);
+// Update - PATCH
+router.patch('/:nativeAudioId', nativeController.updateNative);
 
-// // Delete - delete
-// router.delete('/:idUser', nativeController.deleteNativeAudio);
+// Delete - DELETE
+router.delete('/:nativeAudioId', nativeController.deleteNative);
 
-// module.exports = router;
+module.exports = router;
