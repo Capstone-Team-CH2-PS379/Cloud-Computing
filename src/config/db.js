@@ -10,4 +10,22 @@ const pool = mysql.createPool({
     database: process.env.DBNAME,
 });
 
+// Fungsi untuk mengecek koneksi
+async function checkConnection() {
+    try {
+        const connection = await pool.getConnection();
+        await connection.ping();
+        // Koneksi berhasil, lepaskan koneksi dan tidak perlu menampilkan apa-apa
+        connection.release();
+    } catch (error) {
+        // Koneksi gagal, tampilkan error
+        console.error('Unable to connect to MySQL', error);
+        // Optional: Anda bisa menambahkan proses exit jika ingin menghentikan aplikasi
+        process.exit(1);
+    }
+}
+
+// Eksekusi pengecekan koneksi
+checkConnection();
+
 module.exports = pool;

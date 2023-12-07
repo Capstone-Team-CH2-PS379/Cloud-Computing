@@ -28,7 +28,7 @@
 
 ```sh
     npm init -y
-    npm install express nodemon
+    npm install express nodemon dotenv mysql2 bcrypt jsonwebtoken joi
 ```
 4. pastikan pada package.json terdapat
 ```sh

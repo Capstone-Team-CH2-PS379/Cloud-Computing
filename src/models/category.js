@@ -1,4 +1,4 @@
-const dbPool = require('../config/db');
+const dbPool = require('../config/db.js');
 const getAllCategory = ()=>{
     const SQLQuery = 'SELECT * FROM category_situation';
     return dbPool.execute(SQLQuery);
