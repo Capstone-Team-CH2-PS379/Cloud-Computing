@@ -28,7 +28,7 @@
 
 ```sh
     npm init -y
-    npm install express nodemon dotenv mysql2 bcrypt jsonwebtoken joi
+    npm install express nodemon dotenv mysql2 bcrypt jsonwebtoken joi multer @google-cloud/storage
 ```
 4. pastikan pada package.json terdapat
 ```sh
