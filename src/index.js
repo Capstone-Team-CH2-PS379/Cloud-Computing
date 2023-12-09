@@ -13,9 +13,6 @@ const usersRoutes = require('./routes/users.js');
 const middlewareLogRequest =require('./middleware/logs.js');
 const middlewareToken = require('./middleware/verifyToken.js')
 
-//requirement Fitur
-// const authRoutes = require('./routes/auth.js');
-
 
 //middleware
 app.use(middlewareLogRequest);
