@@ -28,11 +28,11 @@ app.use("/users", usersRoutes);
 app.use("/category", middlewareToken, categoryRoutes);
 
 // audio native (ingat tambahkan teks translate)
-app.use("/native", middlewareToken, audioNativeRoutes);
+app.use("/native", audioNativeRoutes);  //tambahkan middlewareToken supaya mengecek  token
 
 // recordings audio
 app.use("/record", audioRecord);
-//fitur
+
 
 app.listen(4000, () => {
   console.log(`Server berhasil di running di  http://localhost:4000`);

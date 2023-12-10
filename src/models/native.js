@@ -6,16 +6,22 @@ const getAllNatives = () => {
     return dbPool.execute(SQLQuery);
 };
 
+// mengambil audio natives berdasarkan id
+const getNativeById = (nativeAudioId) => {
+    const SQLQuery = 'SELECT * FROM audio_natives WHERE native_audio_id = ?';
+    return dbPool.execute(SQLQuery, [nativeAudioId]);
+};
+
 // Membuat audio native baru
-const createNewNative = (body) => {
-    const SQLQuery = 'INSERT INTO audio_natives (category_id, text_audio, audioPath) VALUES (?, ?, ?)';
-    return dbPool.execute(SQLQuery, [body.category_id, body.text_audio, body.audioPath]);
+const createNewNative = (category_id, text_audio, audioNativeUrl, text_translate) => {
+    const SQLQuery = 'INSERT INTO audio_natives (category_id, text_audio, audioPath, text_translate) VALUES (?, ?, ?, ?)';
+    return dbPool.execute(SQLQuery, [category_id, text_audio, audioNativeUrl, text_translate]);
 };
 
 // Mengupdate audio native
 const updateNative = (body, nativeAudioId) => {
-    const SQLQuery = 'UPDATE audio_natives SET category_id = ?, text_audio = ?, audioPath = ? WHERE native_audio_id = ?';
-    return dbPool.execute(SQLQuery, [body.category_id, body.text_audio, body.audioPath, nativeAudioId]);
+    const SQLQuery = 'UPDATE audio_natives SET category_id = ?, text_audio = ?, audioPath = ?, text_translate = ? WHERE native_audio_id = ?';
+    return dbPool.execute(SQLQuery, [category_id, text_audio, audioNativeUrl, text_translate, nativeAudioId]);
 };
 
 // Menghapus audio native
@@ -29,4 +35,5 @@ module.exports = {
     createNewNative,
     updateNative,
     deleteNative,
+    getNativeById
 };
