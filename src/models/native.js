@@ -30,10 +30,27 @@ const deleteNative = (nativeAudioId) => {
     return dbPool.execute(SQLQuery, [nativeAudioId]);
 };
 
+// next native
+const getNextIncompleteNativeForUser = (userId) => {
+    const SQLQuery = `
+        SELECT * FROM audio_natives
+        WHERE native_audio_id > (
+            SELECT IFNULL(last_completed_native_audio_id, 0) FROM user_progress WHERE user_id = ?
+        )
+        ORDER BY native_audio_id ASC
+        LIMIT 1;
+    `;
+    return dbPool.execute(SQLQuery, [userId]);
+};
+
+
+
 module.exports = {
     getAllNatives,
     createNewNative,
     updateNative,
     deleteNative,
-    getNativeById
+    getNativeById,
+    getNextIncompleteNativeForUser
+
 };

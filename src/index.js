@@ -27,7 +27,7 @@ app.use("/users", usersRoutes);
 // category
 app.use("/category", middlewareToken, categoryRoutes);
 
-// audio native (ingat tambahkan teks translate)
+// audio native
 app.use("/native", audioNativeRoutes);  //tambahkan middlewareToken supaya mengecek  token
 
 // recordings audio

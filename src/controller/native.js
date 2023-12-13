@@ -105,10 +105,35 @@ const deleteNative = async (req, res) => {
     }
 };
 
+// next materi
+// Di controller/native.js
+
+const getNextIncompleteNativeForUser = async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const [nextIncompleteNative] = await nativeModel.getNextIncompleteNativeForUser(userId);
+
+        if (nextIncompleteNative.length === 0) {
+            return res.status(404).json({ message: "Semua materi telah diselesaikan." });
+        }
+
+        res.json({
+            message: "Materi selanjutnya yang belum diselesaikan",
+            data: nextIncompleteNative[0]
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: "Server Error" });
+    }
+};
+
+
+
 module.exports = {
     getAllNatives,
     createNewNative,
     updateNative,
     deleteNative,
-    getNativeById
+    getNativeById,
+    getNextIncompleteNativeForUser
 };

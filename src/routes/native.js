@@ -18,4 +18,10 @@ router.patch('/:nativeAudioId', upload.single("audio"), handleAudioNative, nativ
 // Delete - DELETE
 router.delete('/:nativeAudioId', nativeController.deleteNative);
 
+//next materi
+// Di routes/native.js atau file routes yang sesuai
+router.get('/nextIncomplete/:userId', nativeController.getNextIncompleteNativeForUser);
+
+
+
 module.exports = router;

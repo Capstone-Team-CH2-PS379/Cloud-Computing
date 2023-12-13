@@ -1,4 +1,5 @@
 const recordModel = require('../models/record.js');
+const userProgressModel= require('../models/userProgress.js')
 
 // Create
 const createNewRecord = async (req, res) => {
@@ -14,6 +15,11 @@ const createNewRecord = async (req, res) => {
         const audioRecordUrl = uploadedFile.cloudStoragePublicUrl;
         // Simpan ke database
         const [result] = await recordModel.createNewRecord(userId, nativeAudioId, audioRecordUrl, skor);
+
+        // Periksa skor dan perbarui user_progress jika skor adalah 100
+        if (skor === 100) {
+            await userProgressModel.updateUserProgress(userId, nativeAudioId);
+        }
         res.json({
             message: "Upload Berhasil",
             fileUrl: audioRecordUrl,
