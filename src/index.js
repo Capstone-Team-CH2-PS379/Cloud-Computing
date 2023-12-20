@@ -28,10 +28,10 @@ app.use("/users", usersRoutes);
 app.use("/category", middlewareToken, categoryRoutes);
 
 // audio native
-app.use("/native", audioNativeRoutes);  //tambahkan middlewareToken supaya mengecek  token
+app.use("/native", middlewareToken, audioNativeRoutes);  //tambahkan middlewareToken supaya mengecek  token
 
 // recordings audio
-app.use("/record", audioRecord);
+app.use("/record",   audioRecord);
 
 
 app.listen(4000, () => {

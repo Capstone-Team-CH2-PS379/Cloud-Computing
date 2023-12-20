@@ -1,3 +1,4 @@
 node_modules/
 .env
 keyauth.json
+keyauthspeech.json

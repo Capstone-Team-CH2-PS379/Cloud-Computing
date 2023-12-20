@@ -1,7 +1,8 @@
 const recordModel = require('../models/record.js');
 const userProgressModel= require('../models/userProgress.js')
 
-// Create
+
+//create
 const createNewRecord = async (req, res) => {
     try {
         const { userId, nativeAudioId, skor } = req.body;
