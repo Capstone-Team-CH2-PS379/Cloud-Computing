@@ -7,6 +7,7 @@ router.post("/register", usersController.createNewUsers);
 
 // Read - GET
 router.get("/", usersController.getAllUsers);
+router.get("/:userId", usersController.getUserById);
 
 // Update - PATCH
 router.patch("/:userId", usersController.updateUsers);

@@ -157,6 +157,35 @@ const login = async (req, res) => {
     }
 };
 
+// get user by id
+const getUserById = async (req, res) => {
+    const { userId } = req.params;
+    try {
+        const [userData] = await usersModel.getUserById(userId);
+
+        if (userData.length === 0) {
+            return res.status(404).json({
+                message: 'User not found',
+                data: null
+            });
+        }
+
+        // Buat salinan dari objek userData dan hapus password
+        const userDataWithoutPassword = { ...userData[0] };
+        delete userDataWithoutPassword.password;
+
+        res.json({
+            message: 'Get User by ID success',
+            data: userDataWithoutPassword
+        });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({
+            message: 'Server Error',
+            serverMessage: error
+        });
+    }
+};
 
 
 module.exports = {
@@ -164,5 +193,6 @@ module.exports = {
     createNewUsers,
     updateUsers,
     deleteUsers,
-    login
+    login,
+    getUserById
 };

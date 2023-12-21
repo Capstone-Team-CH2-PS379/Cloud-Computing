@@ -1,34 +1,28 @@
 const recordModel = require('../models/record.js');
-const userProgressModel= require('../models/userProgress.js')
+// const userProgressModel= require('../models/userProgress.js')
 
 
 //create
+// Create
 const createNewRecord = async (req, res) => {
     try {
         const { userId, nativeAudioId, skor } = req.body;
-
-        const uploadedFile = req.file;
-
-        if (!uploadedFile) {
-            return res.status(400).json({ message: "Tidak ada file yang diunggah" });
-        }
-
-        const audioRecordUrl = uploadedFile.cloudStoragePublicUrl;
+        // console.log(userId, nativeAudioId, skor);
         // Simpan ke database
-        const [result] = await recordModel.createNewRecord(userId, nativeAudioId, audioRecordUrl, skor);
+        const [result] = await recordModel.createNewRecord(userId, nativeAudioId, skor);
 
         // Periksa skor dan perbarui user_progress jika skor adalah 100
-        if (skor === 100) {
-            await userProgressModel.updateUserProgress(userId, nativeAudioId);
-        }
+        // if (skor === 100) {
+        //     await userProgressModel.updateUserProgress(userId, nativeAudioId);
+        // }
         res.json({
-            message: "Upload Berhasil",
-            fileUrl: audioRecordUrl,
-            recordingId: result.insertId
+            message: "Rekaman Berhasil Dibuat",
+            recordingId: result.insertId,
+            skor: skor
         });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ message: "Gagal Mengunggah File Audio" });
+        res.status(500).json({ message: "Gagal Membuat Rekaman" });
     }
 };
 

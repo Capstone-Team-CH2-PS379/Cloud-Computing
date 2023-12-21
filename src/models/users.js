@@ -30,10 +30,17 @@ const login = (email) => {
     return dbPool.execute(SQLQuery, [email]);
 }
 
+// Mengambil data user berdasarkan ID
+const getUserById = (userId) => {
+    const SQLQuery = 'SELECT * FROM users WHERE user_id = ?';
+    return dbPool.execute(SQLQuery, [userId]);
+};
+
 module.exports = {
     getAllUsers,
     createNewUsers,
     updateUsers,
     deleteUsers,
     login,
+    getUserById,
 };

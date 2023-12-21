@@ -43,6 +43,12 @@ const getNextIncompleteNativeForUser = (userId) => {
     return dbPool.execute(SQLQuery, [userId]);
 };
 
+// Mengambil text_audio berdasarkan id
+const getTextAudioById = (nativeAudioId) => {
+    const SQLQuery = 'SELECT text_audio FROM audio_natives WHERE native_audio_id = ?';
+    return dbPool.execute(SQLQuery, [nativeAudioId]);
+};
+
 
 
 module.exports = {
@@ -51,6 +57,7 @@ module.exports = {
     updateNative,
     deleteNative,
     getNativeById,
-    getNextIncompleteNativeForUser
+    getNextIncompleteNativeForUser,
+    getTextAudioById
 
 };
