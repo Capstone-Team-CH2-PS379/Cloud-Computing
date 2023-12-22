@@ -7,7 +7,7 @@ const Joi = require('joi');
 //validation schema
 const userSchema = Joi.object({
     first_name: Joi.string().alphanum().min(3).max(30).required(),
-    last_name: Joi.string().alphanum().min(3).max(30).required(),
+    last_name: Joi.string().alphanum().min(3).max(30).allow(''),
     email: Joi.string().email().required(),
     password: Joi.string().alphanum().min(8).required()
 });
@@ -57,13 +57,14 @@ const createNewUsers = async (req, res) => {
         await usersModel.createNewUsers({ first_name, last_name, email, password: hashedPassword });
 
         res.status(201).json({
-            message: 'CREATE user success',
-            data: {first_name, last_name, email}
+            error: false,
+            message: 'CREATE user success'
         });
     } catch (error) {
         res.status(500).json({
             message: 'Server Error',
-            ServerMessage: error
+            ServerMessage: error,
+            erorr: true,
         });
     }
 };
@@ -88,7 +89,8 @@ const updateUsers = async (req, res) => {
     } catch (error) {
         res.status(500).json({
             message: 'Server Error',
-            serverMessage: error
+            serverMessage: error,
+            error: true,
         });
     }
 };
@@ -135,7 +137,8 @@ const login = async (req, res) => {
         if (!validPassword) {
             return res.status(401).json({
                 message: 'Login failed, password incorrect',
-                data: null
+                data: null,
+                error: true,
             });
         }
 
@@ -144,10 +147,11 @@ const login = async (req, res) => {
          delete userWithoutPassword.password;
         // Jika berhasil, buat token JWT
         const token = jwt.sign({ userId: users[0].user_id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        userWithoutPassword.token = token; // Menambahkan token ke dalam objek userWithoutPassword
         res.json({
             message: 'Login successful',
-            token: token,
-            data: userWithoutPassword
+            error: false, // Tidak ada error
+            data: userWithoutPassword // Sertakan token di dalam data
         });
     } catch (error) {
         res.status(500).json({

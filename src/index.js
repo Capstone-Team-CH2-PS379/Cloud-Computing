@@ -3,6 +3,9 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 
+
+
+
 app.use(express.json()); //untuk parsing JSON
 
 //requirement
@@ -36,6 +39,8 @@ app.use("/record",   audioRecord);
 
 // skor and leaderboard
 app.use("/skor", skorRoutes);
+
+
 
 
 

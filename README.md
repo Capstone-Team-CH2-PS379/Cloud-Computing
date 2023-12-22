@@ -13,6 +13,8 @@
 - Menggunakan Model Machine Learning
 - Membuat API untuk fitur voice channel Real Time
 
+## Branch yang kami deploy yang develop
+## Branch machine-learning disitu ada kode yang berhubungan dengan Model Machine Learning
 
 ## Memulai Project
 [![Npm package version](https://badgen.net/npm/v/express)](https://npmjs.com/package/express) 	![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB) [![git](https://badgen.net/badge/icon/git?icon=git&label)](https://git-scm.com)
